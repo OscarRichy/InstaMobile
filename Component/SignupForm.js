@@ -40,7 +40,7 @@ export default function SignupForm() {
                 validationSchema={SignupSchema}
                 
                 onSubmit={( data, actions) => {
-                    actions.resetForm();
+                    
                     const apiUrl = 'https://api.adas.app/api/v1/users/registration/';
                     //setNonFieldError("");
                     actions.setSubmitting(true); // Ceci grise le bouton du formulaire pour dire à l'utilisateur qu'on traite sa requete
@@ -48,6 +48,7 @@ export default function SignupForm() {
                     axios.post(apiUrl, data)
                         .then(response => {
                             console.log(response)
+                            actions.resetForm();
                             navigate('Login'); // Si l'appel de l'api est une réussite, donc on s'est bien enregistré, on redirige l'utilisateur vers la page login
                         })
                         .catch(error => {
