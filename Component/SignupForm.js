@@ -10,24 +10,24 @@ const SignupSchema = yup.object({
         .email('Please enter a valid email')
         .required(),
 
-    firstName: yup.string()
+    first_name: yup.string()
         .required()
         .min(1)
         .max(150),
-    lastName: yup.string()
+    last_name: yup.string()
         .required()
         .min(1)
         .max(150),
-    phoneNumber: yup.string()
+    phone_number: yup.string()
         .required()
         .min(1)
         .max(128),
     password1: yup.string()
         .required('Password is required')
-        .min(1),
+        .min(8),
     password2: yup.string()
         .required('You must verify the password')
-        .min(1)
+        .min(8)
         .oneOf([yup.ref('password1'), null], 'Passwords must match')
 
 })
@@ -36,21 +36,29 @@ export default function SignupForm() {
     return(
         <View style={ {marginTop: 10 } }>
             <Formik
-                initialValues={{ email: '', firstName: '', lastName: '', phoneNumber: '', password1: '', password2: ''}}
+                initialValues={{ email: '', first_name: '', last_name: '', phone_number: '', password1: '', password2: ''}}
                 validationSchema={SignupSchema}
                 
                 onSubmit={( data, actions) => {
                     actions.resetForm();
-                    const apiUrl = 'users/registration/';
+                    const apiUrl = 'https://api.adas.app/api/v1/users/registration/';
                     //setNonFieldError("");
                     actions.setSubmitting(true); // Ceci grise le bouton du formulaire pour dire à l'utilisateur qu'on traite sa requete
                     // On dit à Axios d'aller appeler l'apiUrl avec la méthode POST, et les données du formulaire (data)
                     axios.post(apiUrl, data)
                         .then(response => {
+                            console.log(response)
                             navigate('Login'); // Si l'appel de l'api est une réussite, donc on s'est bien enregistré, on redirige l'utilisateur vers la page login
                         })
-                        .catch(errors => {
-                            console.log(errors)
+                        .catch(error => {
+                            if (error.response) {
+                                let errors = error.response.data;
+                                formikActions.setErrors(errors);
+                                if (errors.non_field_errors) {
+                                    setErrorMsg(errors.non_field_errors);
+                                }
+                            }
+                            
                             // On verra après ce qui faudra faire en cas d'erreur
                         }).finally(() => {
                             actions.setSubmitting(false); // On finit par remettre le bouton à la normale
@@ -73,27 +81,27 @@ export default function SignupForm() {
                         <TextInput
                             style={styles.textinput}
                             placeholder='First Name'
-                            onChangeText = {props.handleChange('firstName')}
-                            value={props.values.firstName}
+                            onChangeText = {props.handleChange('first_name')}
+                            value={props.values.first_name}
                         />
-                        <Text style={styles.errortext}> {props.errors.firstName}</Text>
+                        <Text style={styles.errortext}> {props.errors.first_name}</Text>
 
                         <TextInput
                             style={styles.textinput}
                             placeholder='Last Name'
-                            onChangeText = {props.handleChange('lastName')}
-                            value={props.values.lastName}
+                            onChangeText = {props.handleChange('last_name')}
+                            value={props.values.last_name}
                         />
-                        <Text style={styles.errortext} > {props.errors.lastName}</Text>
+                        <Text style={styles.errortext} > {props.errors.last_name}</Text>
 
                         <TextInput
                             style={styles.textinput}
                             placeholder='Phone Number'
-                            onChangeText = {props.handleChange('phoneNumber')}
-                            value={props.values.phoneNumber}
+                            onChangeText = {props.handleChange('phone_number')}
+                            value={props.values.phone_number}
                             keyboardType='numeric'
                         />   
-                        <Text style={styles.errortext}> {props.errors.phoneNumber}</Text>
+                        <Text style={styles.errortext}> {props.errors.phone_number}</Text>
 
                         <TextInput
                             style={styles.textinput}
