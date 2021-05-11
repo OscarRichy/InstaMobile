@@ -53,7 +53,7 @@ export default function SignupForm() {
                         .catch(error => {
                             if (error.response) {
                                 let errors = error.response.data;
-                                formikActions.setErrors(errors);
+                                actions.setErrors(errors);
                                 if (errors.non_field_errors) {
                                     setErrorMsg(errors.non_field_errors);
                                 }
