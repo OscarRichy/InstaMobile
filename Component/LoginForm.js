@@ -27,11 +27,11 @@ export default function LoginForm() {
                 
                 onSubmit={( data, actions) => {
                     
-                    const apiUrl2 = 'https://api.adas.app/api/v1/users/registration/login/';
+                    const apiUrl = 'https://api.adas.app/api/v1/users/registration/login/';
                     //setNonFieldError("");
                     actions.setSubmitting(true); // Ceci grise le bouton du formulaire pour dire à l'utilisateur qu'on traite sa requete
                     // On dit à Axios d'aller appeler l'apiUrl avec la méthode POST, et les données du formulaire (data)
-                    axios.post(apiUrl2, data)
+                    axios.post(apiUrl, data)
                         .then(response => {
                             console.log(response)
                             actions.resetForm();
