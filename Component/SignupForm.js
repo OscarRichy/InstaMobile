@@ -49,10 +49,12 @@ export default function SignupForm() {
                         .then(response => {
                             navigate('Login'); // Si l'appel de l'api est une réussite, donc on s'est bien enregistré, on redirige l'utilisateur vers la page login
                         })
-                        .catch(error => {
+                        .catch(errors => {
+                            console.log(errors)
                             // On verra après ce qui faudra faire en cas d'erreur
                         }).finally(() => {
                             actions.setSubmitting(false); // On finit par remettre le bouton à la normale
+                        
                             
                         });                    
         
@@ -109,7 +111,7 @@ export default function SignupForm() {
                         />   
                         <Text style={styles.errortext}> {props.errors.password2}</Text> 
                         
-                        <Button style={{marginTop: 20, marginLeft: 20, marginRight: 20}} title= 'Sign Up' onPress={props.handleSubmit}  
+                        <Button style={{marginTop: 20, marginLeft: 20, marginRight: 20}} title= 'Sign Up' disabled={props.isSubmitting} onPress={props.handleSubmit}  
                         />
 
                     </View>
