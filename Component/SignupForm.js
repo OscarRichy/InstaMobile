@@ -3,6 +3,7 @@ import { StyleSheet, TextInput, View, Text} from 'react-native';
 import { Button } from 'react-native-elements'
 import { Formik } from 'formik';
 import * as yup from 'yup';
+import * as axios from 'axios';
 
 const SignupSchema = yup.object({
     email: yup.string()
@@ -37,10 +38,24 @@ export default function SignupForm() {
             <Formik
                 initialValues={{ email: '', firstName: '', lastName: '', phoneNumber: '', password1: '', password2: ''}}
                 validationSchema={SignupSchema}
-                onSubmit={( values, actions) => {
+                
+                onSubmit={( data, actions) => {
                     actions.resetForm();
-                    console.log(values);
-                    
+                    const apiUrl = 'users/registration/';
+                    //setNonFieldError("");
+                    actions.setSubmitting(true); // Ceci grise le bouton du formulaire pour dire à l'utilisateur qu'on traite sa requete
+                    // On dit à Axios d'aller appeler l'apiUrl avec la méthode POST, et les données du formulaire (data)
+                    axios.post(apiUrl, data)
+                        .then(response => {
+                            navigate('Login'); // Si l'appel de l'api est une réussite, donc on s'est bien enregistré, on redirige l'utilisateur vers la page login
+                        })
+                        .catch(error => {
+                            // On verra après ce qui faudra faire en cas d'erreur
+                        }).finally(() => {
+                            actions.setSubmitting(false); // On finit par remettre le bouton à la normale
+                            
+                        });                    
+        
                 }}
             >
                 {(props) => (
@@ -60,6 +75,7 @@ export default function SignupForm() {
                             value={props.values.firstName}
                         />
                         <Text style={styles.errortext}> {props.errors.firstName}</Text>
+
                         <TextInput
                             style={styles.textinput}
                             placeholder='Last Name'
@@ -67,6 +83,7 @@ export default function SignupForm() {
                             value={props.values.lastName}
                         />
                         <Text style={styles.errortext} > {props.errors.lastName}</Text>
+
                         <TextInput
                             style={styles.textinput}
                             placeholder='Phone Number'
@@ -75,13 +92,15 @@ export default function SignupForm() {
                             keyboardType='numeric'
                         />   
                         <Text style={styles.errortext}> {props.errors.phoneNumber}</Text>
+
                         <TextInput
                             style={styles.textinput}
                             placeholder='Password'
                             onChangeText = {props.handleChange('password1')}
                             value={props.values.password1}
                         />  
-                        <Text style={styles.errortext}> {props.errors.password1}</Text>                  
+                        <Text style={styles.errortext}> {props.errors.password1}</Text>   
+
                         <TextInput
                             style={styles.textinput}
                             placeholder='Repeat Password'
@@ -89,6 +108,7 @@ export default function SignupForm() {
                             value={props.values.password2}
                         />   
                         <Text style={styles.errortext}> {props.errors.password2}</Text> 
+                        
                         <Button style={{marginTop: 20, marginLeft: 20, marginRight: 20}} title= 'Sign Up' onPress={props.handleSubmit}  
                         />
 
