@@ -4,33 +4,32 @@ import { Button } from 'react-native-elements'
 import SignupForm from './SignupForm'
 
 
-class SignUp extends React.Component {
-    render() {
-        return (
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View style={ {marginTop: 25 } }>
+export default function SignUp({navigation}) {
+    return (
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={ {marginTop: 20 } }>
                 
-                <Text style={{marginTop: 80, fontSize: 40, textAlign: 'center', fontWeight: 'bold'}}> Instagram </Text>
+                <Text style={{marginTop: 0, fontSize: 40, textAlign: 'center', fontWeight: 'bold'}}> Instamobile </Text>
 
                 <Text style={{ marginTop:10,fontSize: 17, textAlign: 'center'}}> Sign up to see photos and videos from your friends </Text>
 
                 <Button //Login with FB
                     style={{marginTop: 20, marginLeft: 20, marginRight: 20}}
                     title="Login with Facebook"
-                     
-                    onPress ={ () => {} }
+                        
+                    onPress ={ () => navigation.navigate('Login')}
                 />
                 <Text style={{ marginTop: 10, fontSize: 17, textAlign: 'center'}}>____________           ____________</Text>
                 <Text style={{ marginTop: -10, fontSize: 17, textAlign: 'center'}}>OR</Text>
-         
-                    <SignupForm/>
-           
+            
+                <SignupForm/>
+            
                 <Text style={{ marginTop:10,fontSize: 12, textAlign: 'center'}}> By signing up, you agree to our Terms & Privacy Policy </Text>
             </View>
-            </TouchableWithoutFeedback>
+        </TouchableWithoutFeedback>
 
-        )
-    }  
+    )
+      
 }
 
 
@@ -52,7 +51,6 @@ const styles = {
     }
 }
 
-export default SignUp
 
 
 

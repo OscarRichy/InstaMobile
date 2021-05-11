@@ -1,58 +1,41 @@
-import 'react-native-gesture-handler';
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import { StyleSheet, TextInput, View, Text} from 'react-native';
 import { Button } from 'react-native-elements'
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import * as axios from 'axios';
-import Login from './Login'
 
-const SignupSchema = yup.object({
+
+
+const LoginSchema = yup.object({
     email: yup.string()
         .email('Please enter a valid email')
         .required(),
 
-    first_name: yup.string()
-        .required()
-        .min(1)
-        .max(150),
-    last_name: yup.string()
-        .required()
-        .min(1)
-        .max(150),
-    phone_number: yup.string()
-        .required()
-        .min(1)
-        .max(128),
     password1: yup.string()
-        .required('Password is required')
-        .min(8),
-    password2: yup.string()
-        .required('You must verify the password')
-        .min(8)
-        .oneOf([yup.ref('password1'), null], 'Passwords must match')
+        .required('Password is required'),
+        
 
 })
 
-export default function SignupForm({navigation}) {
+export default function LoginForm() {
     return(
         <View style={ {marginTop: 10 } }>
             <Formik
-                initialValues={{ email: '', first_name: '', last_name: '', phone_number: '', password1: '', password2: ''}}
-                validationSchema={SignupSchema}
+                initialValues={{email: '', password1: ''}}
+                validationSchema={LoginSchema}
                 
                 onSubmit={( data, actions) => {
                     
-                    const apiUrl = 'https://api.adas.app/api/v1/users/registration/';
+                    const apiUrl2 = 'https://api.adas.app/api/v1/users/registration/login/';
                     //setNonFieldError("");
                     actions.setSubmitting(true); // Ceci grise le bouton du formulaire pour dire à l'utilisateur qu'on traite sa requete
                     // On dit à Axios d'aller appeler l'apiUrl avec la méthode POST, et les données du formulaire (data)
-                    axios.post(apiUrl, data)
+                    axios.post(apiUrl2, data)
                         .then(response => {
                             console.log(response)
-                            actions.resetForm()
-                            navigation.navigate('Login') // Si l'appel de l'api est une réussite, donc on s'est bien enregistré, on redirige l'utilisateur vers la page login
+                            actions.resetForm();
+                           // navigate('Login'); // Si l'appel de l'api est une réussite, donc on s'est bien enregistré, on redirige l'utilisateur vers la page login
                         })
                         .catch(error => {
                             if (error.response) {
@@ -63,7 +46,6 @@ export default function SignupForm({navigation}) {
                                 }
                             }
                             
-                            // On verra après ce qui faudra faire en cas d'erreur
                         }).finally(() => {
                             actions.setSubmitting(false); // On finit par remettre le bouton à la normale
                         
@@ -81,31 +63,6 @@ export default function SignupForm({navigation}) {
                             value={props.values.email}
                         />
                         <Text style={styles.errortext}> {props.errors.email}</Text>
-                        
-                        <TextInput
-                            style={styles.textinput}
-                            placeholder='First Name'
-                            onChangeText = {props.handleChange('first_name')}
-                            value={props.values.first_name}
-                        />
-                        <Text style={styles.errortext}> {props.errors.first_name}</Text>
-
-                        <TextInput
-                            style={styles.textinput}
-                            placeholder='Last Name'
-                            onChangeText = {props.handleChange('last_name')}
-                            value={props.values.last_name}
-                        />
-                        <Text style={styles.errortext} > {props.errors.last_name}</Text>
-
-                        <TextInput
-                            style={styles.textinput}
-                            placeholder='Phone Number'
-                            onChangeText = {props.handleChange('phone_number')}
-                            value={props.values.phone_number}
-                            keyboardType='numeric'
-                        />   
-                        <Text style={styles.errortext}> {props.errors.phone_number}</Text>
 
                         <TextInput
                             style={styles.textinput}
@@ -115,15 +72,8 @@ export default function SignupForm({navigation}) {
                         />  
                         <Text style={styles.errortext}> {props.errors.password1}</Text>   
 
-                        <TextInput
-                            style={styles.textinput}
-                            placeholder='Repeat Password'
-                            onChangeText = {props.handleChange('password2')}
-                            value={props.values.password2}
-                        />   
-                        <Text style={styles.errortext}> {props.errors.password2}</Text> 
                         
-                        <Button style={{marginTop: 20, marginLeft: 20, marginRight: 20}} title= 'Sign Up' disabled={props.isSubmitting} onPress={props.handleSubmit}  
+                        <Button style={{marginTop: 20, marginLeft: 20, marginRight: 20}} title= 'Login' disabled={props.isSubmitting} onPress={props.handleSubmit}  
                         />
 
                     </View>
@@ -161,4 +111,3 @@ const styles = {
 
     }
 }
-

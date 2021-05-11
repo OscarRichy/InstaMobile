@@ -1,37 +1,34 @@
 import React from 'react'
-import { View, TextInput, Text, StyleSheet, Alert} from 'react-native'
+import { View, TextInput, Text, StyleSheet, Alert,TouchableWithoutFeedback, Keyboard} from 'react-native'
 import { Button } from 'react-native-elements'
-class Login extends React.Component {
-    render() {
-        return (
+import LoginForm from './LoginForm'
+
+
+
+export default function Login({navigation}) {
+
+    return (
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={ {marginTop: 25 } }>
 
                 <Text style={{marginTop: 120, fontSize: 40, textAlign: 'center', fontWeight: 'bold'}}> Instamobile </Text>
 
-                <TextInput style={styles.textinput} placeholder="Username"/>
+                <LoginForm/>
 
-                <TextInput style={[styles.textinput,{marginTop: 10}]} placeholder="Password"/> 
-
-                <Button //Login
-                    style={{marginTop: 10, marginLeft: 10, marginRight: 10}}
-                    title="Login" 
-                    type='solid'
-                    onPress ={ () => {Alert.alert("Login Completed")} }
-                    
-                />
-
+                <Text style={{ marginTop:10,fontSize: 12, textAlign: 'center'}}> You don't have an account yet ? Sign Up by clicking bellow </Text>
                 <Button //Login with FB
                     style={{marginTop: 10}}
-                    title="Login with Facebook"
+                    title="Sign Up"
                     type = 'clear' 
-                    onPress ={ () => {} }
+                    onPress ={ () => navigation.navigate('SignUp') }
                 />
 
 
             </View>
+        </TouchableWithoutFeedback>
 
-        )
-    }
+    )
+    
 }
 
 const styles = {
@@ -51,5 +48,3 @@ const styles = {
 
     }
 }
-
-export default Login
