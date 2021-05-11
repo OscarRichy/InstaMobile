@@ -1,14 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Login from './Component/Login'
+import SignUp from './Component/SignUp'
 
-// Components/Search.js
+
 
 
 export default function App() {
   return (
-    <Login/>
+    <SignUp/>
   );
 }
 
