@@ -6,7 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { StyleSheet, Text, View } from 'react-native';
 import SignUp from './Component/SignUp'
 import Login from './Component/Login'
-//import AppNavigator from './routes/AppNavigator';
+
 
 
 
