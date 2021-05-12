@@ -4,6 +4,8 @@ import { Button } from 'react-native-elements'
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import * as axios from 'axios';
+import { useNavigation } from '@react-navigation/native';
+import axiosInterceptor from '../utils/AxiosInterceptor';
 
 
 const SignupSchema = yup.object({
@@ -33,7 +35,8 @@ const SignupSchema = yup.object({
 
 })
 
-export default function SignupForm({navigation}) {
+export default function SignupForm() {
+    const navigation = useNavigation();
     return(
         <View style={ {marginTop: 10 } }>
             <Formik
@@ -46,11 +49,13 @@ export default function SignupForm({navigation}) {
                     //setNonFieldError("");
                     actions.setSubmitting(true); // Ceci grise le bouton du formulaire pour dire à l'utilisateur qu'on traite sa requete
                     // On dit à Axios d'aller appeler l'apiUrl avec la méthode POST, et les données du formulaire (data)
-                    axios.post(apiUrl, data)
+                    axiosInterceptor.post(apiUrl, data)
                         .then(response => {
                             console.log(response)
                             actions.resetForm()
+                            console.log('1')
                             navigation.navigate('Login') // Si l'appel de l'api est une réussite, donc on s'est bien enregistré, on redirige l'utilisateur vers la page login
+                            console.log('2')
                         })
                         .catch(error => {
                             if (error.response) {

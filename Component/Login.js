@@ -16,7 +16,7 @@ export default function Login({navigation}) {
                 <LoginForm/>
 
                 <Text style={{ marginTop:10,fontSize: 12, textAlign: 'center'}}> You don't have an account yet ? Sign Up by clicking bellow </Text>
-                <Button //Login with FB
+                <Button //Sign Up
                     style={{marginTop: 10}}
                     title="Sign Up"
                     type = 'clear' 

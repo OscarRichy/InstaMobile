@@ -6,23 +6,29 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { StyleSheet, Text, View } from 'react-native';
 import SignUp from './Component/SignUp'
 import Login from './Component/Login'
-
-
+import MyProfile from './Component/MyProfile';
+import Home from './Component/Home';
+import { getJwt } from './utils/jwt';
+import axios from 'axios';
+import axiosInterceptor from './utils/AxiosInterceptor';
 
 
 const Stack = createStackNavigator();
 
 
 export default function App() {
-  return (
+    return(
+
     <NavigationContainer>
       <Stack.Navigator>
-       <Stack.Screen name ='SignUp' component={SignUp} options={{ title: 'Sign Up Page' }}/>
-       <Stack.Screen name='Login' component={Login} options={{ title: 'Login Page'}}/>
+        <Stack.Screen name = 'Home' component={Home} options={{ title: 'Home Page'}}/> 
+        <Stack.Screen name='Login' component={Login} options={{ title: 'Login Page'}}/>
+        <Stack.Screen name ='SignUp' component={SignUp} options={{ title: 'Sign Up Page' }}/>
+        <Stack.Screen name='MyProfile' component={MyProfile} options={{ title: 'Profile Page'}}/>
       </Stack.Navigator>
     </NavigationContainer>
-    
-  );
+    )
+
 }
 
 const styles = StyleSheet.create({
