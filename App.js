@@ -21,10 +21,10 @@ export default function App() {
 
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name = 'Home' component={Home} options={{ title: 'Home Page'}}/> 
-        <Stack.Screen name='Login' component={Login} options={{ title: 'Login Page'}}/>
-        <Stack.Screen name ='SignUp' component={SignUp} options={{ title: 'Sign Up Page' }}/>
-        <Stack.Screen name='MyProfile' component={MyProfile} options={{ title: 'Profile Page'}}/>
+        <Stack.Screen name = 'Home' component={Home} options={{headerShown: false}}/> 
+        <Stack.Screen name='Login' component={Login} options={{headerShown: false}}/>
+        <Stack.Screen name ='SignUp' component={SignUp} options={{ headerShown: false}}/>
+        <Stack.Screen name='MyProfile' component={MyProfile} options={{headerShown: false}}/>
       </Stack.Navigator>
     </NavigationContainer>
     )
