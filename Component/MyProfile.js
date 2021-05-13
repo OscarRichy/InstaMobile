@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, TextInput, View, Text, ImageBackground, Image} from 'react-native';
+import { StyleSheet, TextInput, View, Text, ImageBackground, Image, ScrollView} from 'react-native';
 import { Button } from 'react-native-elements'
 import { useNavigation } from '@react-navigation/native';
 import { deleteJwt } from '../utils/jwt';
@@ -8,8 +8,7 @@ import{ IconButton, Colors } from 'react-native-paper';
 
 
 
-
-const imageBg = require ('C:/Users/draze/Desktop/Test/utils/ImageBg.png');
+const imageBg = require ('../assets/ImageBg.png');
 
 
 
@@ -28,14 +27,17 @@ export default function MyProfile(){
     }, [])
 
     return( 
-        <ImageBackground source={imageBg} style={styles.imageBg}>
 
-            <View style={ {marginTop: 0} }>
 
+            <ScrollView style={ {marginTop: 0}}>
+
+            <Image source={imageBg} style={styles.imageBg}></Image>
+            
         {/* Bouton Icone notifications*/}
 
                 <IconButton
-                    style={{marginLeft: 330, marginTop: 50}}
+                    
+                    style={{marginLeft: 320, marginTop: 80, position: 'absolute', shadowOpacity: 0.5}}
                     icon = "bell-outline"
                     color={Colors.white}
                     size={30}
@@ -54,17 +56,17 @@ export default function MyProfile(){
             {/*Photo de profile*/ }
 
                 <View style={styles.shadow}>
-                    <Image source={{uri: "https://i.pinimg.com/736x/fd/b6/de/fdb6dea1b13458837c6e56361d2c2771.jpg"} } style={styles.image}></Image>
+                    <Image source={require( "../assets/profilepictest.jpg") } style={styles.image}></Image>
                 </View>
             
             {/* View Popular Group */ }
 
-                <Text style={{marginTop: 20, marginLeft:30, fontSize: 17, fontWeight: 'bold', color: 'grey'}}>Popular Group</Text>
+                <Text style={{marginTop: 30, marginLeft:30, fontSize: 17, fontWeight: 'bold', color: 'grey'}}>Popular Group</Text>
 
                 <View style={[styles.shadow2,styles.view2]}>
 
                     <Text style={{marginTop:20, marginLeft: 100, fontWeight: 'bold', fontSize: 17}}> Iron Yard  </Text>
-                    <Image source={{uri: "https://i.pinimg.com/736x/fd/b6/de/fdb6dea1b13458837c6e56361d2c2771.jpg"} } style={styles.image2}></Image>
+                    <Image source={require( "../assets/profilepictest.jpg")} style={styles.image2}></Image>
                     <Text style={{marginTop: -40, marginLeft:250, fontSize: 17, fontWeight: 'bold', color: 'royalblue'}}>$1,295</Text>
                 
                 </View>
@@ -78,16 +80,15 @@ export default function MyProfile(){
                 </View>
             {/* Boutton Log Out*/}
                 <Button 
-                    style={{marginTop: 50, marginLeft : 110, marginRight: 110,}}
+                    style={{marginTop: 150, marginLeft : 110, marginRight: 110,}}
                     title="Log Out"
                     type = 'solid' 
                     onPress ={ () => {deleteJwt(), navigation.navigate('Home')}
                     }
                 />
             
-
-            </View>
-        </ImageBackground>
+            </ScrollView>
+        
     )
 }
 
@@ -97,10 +98,11 @@ const styles = StyleSheet.create({
       flexDirection: "column"
     },
     shadow :{
-        shadowOpacity : 0.5,
-        shadowColor : 'mediumturquoise',
+        shadowOpacity : 0.4,
+        shadowColor : 'black',
         shadowRadius: 10,
-        shadowOffset: {height: 10, width: 0}
+        shadowOffset: {height: 10, width: 0},
+        elevation: 40
 
     },
     shadow2 :{
@@ -111,16 +113,21 @@ const styles = StyleSheet.create({
 
     },
     imageBg: {
-     
-      width : '100%',
-      height: '100%',
-     // resizeMode: "cover",
+        shadowColor: 'mediumturquoise',
+        shadowOpacity: 1,
+        width : 375,
+        height: 300,
+        position: 'absolute',
+        borderBottomLeftRadius : 45,
+        borderBottomRightRadius : 45,
+        resizeMode: "cover",
       //justifyContent: "center"
     },
     image:{
        // flex:1,
         marginTop: -250,
         alignSelf: 'center',
+        resizeMode: 'cover',
         width : 110 ,
         height : 110,
         borderColor: '#f8f8f8',
@@ -139,7 +146,7 @@ const styles = StyleSheet.create({
     view1: {
      //   fontWeight: 'bold',
        // overflow: 'hidden',
-        marginTop:60,
+        marginTop:180,
         borderColor:'#dcdcdc',
         backgroundColor: '#f8f8ff',
         borderRadius: 30,

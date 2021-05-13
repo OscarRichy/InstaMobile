@@ -1,21 +1,23 @@
 import React from 'react'
-import { View,Image, TextInput, Text, StyleSheet, Alert, TouchableWithoutFeedback, Keyboard} from 'react-native'
+import { ScrollView ,View, Text, StyleSheet, TouchableWithoutFeedback, Keyboard} from 'react-native'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Button } from 'react-native-elements'
 import SignupForm from './SignupForm'
 
 
 export default function SignUp({navigation}) {
     return (
+        <KeyboardAwareScrollView>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View style={ {marginTop: 20 } }>
+            <ScrollView style={ {marginTop: 20 } }>
                 
-                <Text style={{marginTop: 0, fontSize: 40, textAlign: 'center', fontWeight: 'bold'}}> Instamobile </Text>
+                <Text style={{marginTop: 40, fontSize: 40, textAlign: 'center', fontWeight: 'bold'}}> Instamobile </Text>
 
                 <Text style={{ marginTop:10,fontSize: 17, textAlign: 'center'}}> Sign up to see photos and videos from your friends </Text>
 
                 <Button //Login with FB
                     style={{marginTop: 20, marginLeft: 20, marginRight: 20}}
-                    title="Login with Facebook"
+                    title="Login"
                         
                     onPress ={ () => navigation.navigate('Login')}
                 />
@@ -25,8 +27,9 @@ export default function SignUp({navigation}) {
                 <SignupForm/>
             
                 <Text style={{ marginTop:10,fontSize: 12, textAlign: 'center'}}> By signing up, you agree to our Terms & Privacy Policy </Text>
-            </View>
+            </ScrollView>
         </TouchableWithoutFeedback>
+        </KeyboardAwareScrollView>
 
     )
       

@@ -1,9 +1,6 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, TextInput, View, Text} from 'react-native';
+import { StyleSheet,View, Text} from 'react-native';
 import { Button } from 'react-native-elements'
-import { getJwt } from '../utils/jwt';
-import Login from './Login'
-import SignUp from './SignUp';
 import { useNavigation } from '@react-navigation/native';
 import axiosInterceptor from '../utils/AxiosInterceptor';
 
@@ -24,22 +21,27 @@ export default function Home(){
         });          
     })
     return( 
-        <View style={ {marginTop: 50 } }>
-            <Text style={{marginTop: 0, fontSize: 40, textAlign: 'center', fontWeight: 'bold'}}> Instamobile </Text>
-            <Button   
-            style={{marginTop: 50,marginLeft: 20, marginRight: 20}}
-            title="Login" 
-            onPress ={ () => navigation.navigate('Login') }
-            />
-             <Button   
-            style={{marginTop: 10}}
-            title="Sign Up" 
-            type= 'clear'
-            onPress ={ () => navigation.navigate('SignUp') }
-            />
-
-       
-
+        <View style={styles.container}>
+            <View style={ {marginTop: 200} }>
+                <Text style={{marginTop: 10, fontSize: 40, textAlign: 'center', fontWeight: 'bold'}}> Instamobile </Text>
+                <Button   
+                style={{marginTop: 50,marginLeft: 20, marginRight: 20}}
+                title="Login" 
+                onPress ={ () => navigation.navigate('Login') }
+                />
+                <Button   
+                style={{marginTop: 20}}
+                title="Sign Up" 
+                type= 'clear'
+                onPress ={ () => navigation.navigate('SignUp') }
+                />
+            </View>
         </View>
     )
 }
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: 'white',
+    },
+});

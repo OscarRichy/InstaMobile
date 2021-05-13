@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, TextInput, Text, StyleSheet, Alert,TouchableWithoutFeedback, Keyboard} from 'react-native'
+import { ScrollView,View, TextInput, Text, StyleSheet, Alert,TouchableWithoutFeedback, Keyboard} from 'react-native'
 import { Button } from 'react-native-elements'
 import LoginForm from './LoginForm'
 

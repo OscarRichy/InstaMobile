@@ -8,7 +8,6 @@ import { useNavigation } from '@react-navigation/native';
 import { setJwt } from '../utils/jwt';
 import axiosInterceptor from '../utils/AxiosInterceptor';
 
-let token;
 
 const LoginSchema = yup.object({
     email: yup.string()
